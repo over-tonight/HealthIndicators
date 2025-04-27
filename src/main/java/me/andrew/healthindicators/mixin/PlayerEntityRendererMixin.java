@@ -120,6 +120,9 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
     @Unique
     private static boolean shouldRenderHeartsForEntity(Entity entity) {
         if (entity instanceof AbstractClientPlayerEntity abstractClientPlayerEntity) {
+            if (abstractClientPlayerEntity.isInvisibleTo(MinecraftClient.getInstance().player) && abstractClientPlayerEntity.getArmor() != 0 || abstractClientPlayerEntity.isInvisibleTo(MinecraftClient.getInstance().player) && abstractClientPlayerEntity.isOnFire() || abstractClientPlayerEntity.isInvisibleTo(MinecraftClient.getInstance().player) && abstractClientPlayerEntity.getStuckArrowCount() != 0) {
+                return !abstractClientPlayerEntity.isMainPlayer();
+            }
             return !abstractClientPlayerEntity.isMainPlayer() && !abstractClientPlayerEntity.isInvisibleTo(MinecraftClient.getInstance().player);
         }
 
